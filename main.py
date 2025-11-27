@@ -320,7 +320,7 @@ def create_artificial_data(input_rows):
 def load_data(filename: str):
     # df = artificial_data(rows)
     save = True
-    rows = 20
+    # rows = 20
     database_path = "data/" + filename
     if rows == None:
         df = pd.read_csv(database_path, encoding="utf8")
@@ -1607,3 +1607,4 @@ if __name__ == "__main__":
     warnings.simplefilter("ignore")
     # main1()
     main2()
+
