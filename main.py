@@ -1207,39 +1207,39 @@ def analyse_original_data():
     cor = df.corr()
 
     # Histogramm BMI neben Kosten
-    # cm = 1/2.54
-    # fig, ax = plt.subplots(1, 2, sharey=True, figsize=(16 / 2, 9 / 2))
-    # ax[0].hist(df["bmi"], bins=np.multiply(2, np.array(range(7, 26))))
-    # # ax[0].set_title("Histogramm vom Attribut BMI")
-    # ax[0].set_xlabel("BMI")
-    # ax[0].set_ylabel("Anzahl")
-    # # ax[1].hist(df["smoker"].astype("float"))
-    # # ax[1].set_title("Histogramm vom Attribut Raucher")
-    # ax[1].hist(df["charges"], bins=np.multiply(2000, np.array(range(1, 28))))
-    # # ax[1].set_title("Histogramm vom Attribut Kosten")
-    # ax[1].set_xlabel("Kosten")
-    # fig.tight_layout()
-    # # plt.show()
-    # plt.savefig("pictures/histogramm_bmi_charges.png", dpi=600)
+    cm = 1/2.54
+    fig, ax = plt.subplots(1, 2, sharey=True, figsize=(16 / 2, 9 / 2))
+    ax[0].hist(df["bmi"], bins=np.multiply(2, np.array(range(7, 26))))
+    # ax[0].set_title("Histogramm vom Attribut BMI")
+    ax[0].set_xlabel("BMI")
+    ax[0].set_ylabel("Anzahl")
+    # ax[1].hist(df["smoker"].astype("float"))
+    # ax[1].set_title("Histogramm vom Attribut Raucher")
+    ax[1].hist(df["charges"], bins=np.multiply(2000, np.array(range(1, 28))))
+    # ax[1].set_title("Histogramm vom Attribut Kosten")
+    ax[1].set_xlabel("Kosten")
+    fig.tight_layout()
+    # plt.show()
+    plt.savefig("pictures/histogramm_bmi_charges.png", dpi=600)
 
     # Histogramm Kosten auf Untergruppen Raucherstatus
-    # fig, ax = plt.subplots(1, 2, sharey=True, figsize=(16 / 2, 9 / 2))
-    # ax[0].hist(
-    #     df["charges"][df["smoker"] == False],
-    #     bins=np.multiply(2000, np.array(range(1, 28))),
-    # )
-    # # ax[0].set_title("Histogramm vom Attribut Kosten")
-    # ax[0].set_xlabel("Kosten für Nichtraucher")
-    # ax[0].set_ylabel("Anzahl")
-    # ax[1].hist(
-    #     df["charges"][df["smoker"] == True],
-    #     bins=np.multiply(2000, np.array(range(1, 28))),
-    # )
-    # # ax[1].set_title("Histogramm vom Attribut Kosten")
-    # ax[1].set_xlabel("Kosten für Raucher")
-    # fig.tight_layout()
-    # # plt.show()
-    # plt.savefig("pictures/histogramm_charges_subgroup_smoker.png", dpi=600)
+    fig, ax = plt.subplots(1, 2, sharey=True, figsize=(16 / 2, 9 / 2))
+    ax[0].hist(
+        df["charges"][df["smoker"] == False],
+        bins=np.multiply(2000, np.array(range(1, 28))),
+    )
+    # ax[0].set_title("Histogramm vom Attribut Kosten")
+    ax[0].set_xlabel("Kosten für Nichtraucher")
+    ax[0].set_ylabel("Anzahl")
+    ax[1].hist(
+        df["charges"][df["smoker"] == True],
+        bins=np.multiply(2000, np.array(range(1, 28))),
+    )
+    # ax[1].set_title("Histogramm vom Attribut Kosten")
+    ax[1].set_xlabel("Kosten für Raucher")
+    fig.tight_layout()
+    # plt.show()
+    plt.savefig("pictures/histogramm_charges_subgroup_smoker.png", dpi=600)
 
     return None
 
@@ -1313,8 +1313,8 @@ def analyse_exponential_mechanism():
         ncol=4,
     )
     # plt.subplots_adjust(bottom=0.2)
-    plt.show()
-    # plt.savefig("pictures/sen_alpha.png", dpi=600)
+    # plt.show()
+    plt.savefig("pictures/sen_alpha.png", dpi=600)
 
     filepath1 = "results/insurance_without_nan_100_rows.csv/alpha=0.1;k=20;iterations=100000;stepsize=[1, 1];sigma=[1, 500]/1/"
     filepath2 = "results/insurance_without_nan.csv/alpha=0.1;k=20;iterations=100000;stepsize=[1, 1];sigma=[1, 500]/1/"
@@ -1474,7 +1474,7 @@ def analyse_exponential_mechanism():
         result_x.append(np.transpose(pd.read_csv(path + "result_x.csv")))
         result_z.append(pd.read_csv(path + "result_z.csv"))
 
-    # # Entwicklung wärend MCMC
+    # Entwicklung wärend MCMC
     stepsize = 500
     fig, ax = plt.subplots(2, 1, sharex=True, figsize=(16 / 2, 9 / 2))
 
@@ -1550,7 +1550,7 @@ def analyse_exponential_mechanism():
         result_x.append(np.transpose(pd.read_csv(path + "result_x.csv")))
         result_z.append(pd.read_csv(path + "result_z.csv"))
 
-    # # Entwicklung wärend MCMC
+    # Entwicklung wärend MCMC
     stepsize = 500
     fig, ax = plt.subplots(2, 1, sharex=True, figsize=(16 / 2, 9 / 2))
 
@@ -1607,4 +1607,5 @@ if __name__ == "__main__":
     warnings.simplefilter("ignore")
     # main1()
     main2()
+
 
