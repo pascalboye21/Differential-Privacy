@@ -1,1 +1,2 @@
 # Differential-Privacy
+Im Rahmen meiner Masterarbeit habe ich den Exponential Mechanismus implementiert, um anhand eines praktischen Beispiels eine differential-private Datenbank zu erzeugen, die veröffentlicht werden könnte, ohne Datenschutzbestimmungen zu verletzen. Die Datei „main.py“ zeigt, wie ich die beiden anderen Dateien dafür verwendet habe. Kommentare sind in den Skripten nicht enthalten.
