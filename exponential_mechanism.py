@@ -82,9 +82,8 @@ class Exponential_Mechanism:
         proposal_distribution: callable,
         stats: list,
         sigma: list,
+        sensitivity: float,
         iterations: int = 10_000,
-        sample_size: int = 10,
-        sensitivity: float = None,
         stepsize: int = 1,
     ):
         """Metropolis-Hastings algorithm to obtain a synthetic dataframe with the same properties as the original dataframe in terms of self.statistics.
@@ -94,8 +93,8 @@ class Exponential_Mechanism:
             proposal_distribution (callable): Function that receives and modifies a dataframe.
             stats (list): Statistics comparing the synthetic and original dataframes. For illustrative purposes only, not used for Metropolitan Hasting.
             sigma (list): Variance or standard derivation for proposal distribution.
+            sensitivity (float): Sensitivity of the original dataframe.            
             iterations (int, optional): Number of iterations. Defaults to 100_000.
-            sensitivity (float, optional): Sensitivity of the original dataframe. Defaults to None.
             stepsize (int, optional): Number of rows that change with each iteration of the proposal distribution. Defaults to 1.
 
         Returns:
@@ -197,4 +196,5 @@ class Exponential_Mechanism:
             result_query,
             starting_point,
         )
+
 
