@@ -20,6 +20,14 @@ class Exponential_Mechanism:
         weights: list,
         alpha: float,
     ):
+        """Initialization
+
+        Args:
+            statistics (list): Statistics for Metropolitan Hasting.
+            x (pd.DataFrame): Original dataframe.
+            weights (list): Weights for statistics.
+            alpha (float): Alpha for alpha-differential-privacy.
+        """
         self.statistics = statistics
         self.x = x
         self.weights = weights
@@ -27,6 +35,14 @@ class Exponential_Mechanism:
         self.statistics_list = Sta(self.statistics).cal(x=self.x)
 
     def query_function(self, z: pd.DataFrame):
+        """Query function for expoential mechanism
+
+        Args:
+            z (pd.DataFrame): synthetic dataframe
+
+        Returns:
+            float: Query function Value of synthetic dataframe
+        """
         return np.max(
             np.abs(
                 np.multiply(
@@ -36,32 +52,15 @@ class Exponential_Mechanism:
             )
         )
 
-    def sensitivity_Delta_S(self):
-        maximum = 0
-        n = len(self.x)
-        print("Calculating sensitivity:")
-        for l in tqdm(range(n - 1)):
-            element = self.x.values[l]
-            subset1 = list(self.x.values)
-            del subset1[l]
-            for i in range(n - 1):
-                subset2 = subset1.copy()
-                subset2[i] = element
-                # check = np.array(subset1) - np.array(subset2)
-                res = np.max(
-                    np.abs(
-                        np.multiply(
-                            self.weights,
-                            Sta(self.statistics).cal(x=pd.DataFrame(subset1))
-                            - Sta(self.statistics).cal(x=pd.DataFrame(subset2)),
-                        ),
-                    )
-                )
-                if res >= maximum:
-                    maximum = res
-        return maximum
-
     def starting_point(self, k: int):
+        """Creating random dataframe within the range of the original dataframe
+
+        Args:
+            k (int): Number of rows of the synthetic dataframe
+
+        Returns:
+            Dataframe: Synthetic dataframe within the range of the original dataframe
+        """
         df = self.x.copy().sample(n=k)
         for column in self.x:
             if self.x[column].dtypes == "float64":
@@ -88,6 +87,20 @@ class Exponential_Mechanism:
         sensitivity: float = None,
         stepsize: int = 1,
     ):
+        """Metropolis-Hastings algorithm to obtain a synthetic dataframe with the same properties as the original dataframe in terms of self.statistics.
+
+        Args:
+            k (int): Number of rows in the synthetic dataframe.
+            proposal_distribution (callable): Function that receives and modifies a dataframe.
+            stats (list): Statistics comparing the synthetic and original dataframes. For illustrative purposes only, not used for Metropolitan Hasting.
+            sigma (list): Variance or standard derivation for proposal distribution.
+            iterations (int, optional): Number of iterations. Defaults to 100_000.
+            sensitivity (float, optional): Sensitivity of the original dataframe. Defaults to None.
+            stepsize (int, optional): Number of rows that change with each iteration of the proposal distribution. Defaults to 1.
+
+        Returns:
+            tuple: Synthetic dataframe and other data for making plots.
+        """
         stop = False
         counter = 0
         counter_2 = 0
@@ -107,9 +120,6 @@ class Exponential_Mechanism:
 
         query_function_value_old = self.query_function(z)
         result_query.append(query_function_value_old)
-
-        if sensitivity == None:
-            sensitivity = self.sensitivity_Delta_S()
 
         epsilon = self.alpha / (2 * sensitivity)
 
@@ -187,3 +197,4 @@ class Exponential_Mechanism:
             result_query,
             starting_point,
         )
+
